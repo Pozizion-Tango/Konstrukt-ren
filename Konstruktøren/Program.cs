@@ -36,16 +36,19 @@ namespace Konstruktøren
                 Console.ResetColor();
                 Console.WriteLine("1: Generate Robot Type (default)\r\n2: Generate Robot Type (Cleaner)\r\n0: Exit");
                 string choice = Console.ReadLine();//above to user gets told what they can select. And Choice is their selected number.
-                bool colour = false;//Default setting
+                
                 string chip = "RX54667";//Default setting
                 bool wifi = false;//Default setting
                 int batterycapacity = 255;//Default setting
+                bool iscoloured = false;//Default setting
+                string coloured = "White";//Default setting
                 if (rnd.Next(0, 2) == 0)//Chancing if the robot will have Wifi
                     wifi = true;
                 
                 if (rnd.Next(0, 2) == 0)
                 {
-                    colour = true;
+                    iscoloured = true;
+                    coloured = "Yellow";
                     batterycapacity = 0;
                 }
                 double soapcapacity = 2.3;//Default setting
@@ -59,12 +62,20 @@ namespace Konstruktøren
                     chip = "QT8339";
                 if (choice == "1")//If choice is 1, it will have the "Default setting"
                 {
-                    Robot robot1 = new Robot(colour, batterycapacity, chip, wifi, small, wheels);
-                    robot1.Info();
+                    if (iscoloured)//if it got colour it will use this new robot1
+                    {
+                        Robot robot1 = new Robot(coloured, chip, wifi, small, wheels);
+                        robot1.Info();
+                    }
+                    else//if it's a while one it will go in without a colour change
+                    {
+                        Robot robot1 = new Robot(batterycapacity, chip, wifi, small, wheels);
+                        robot1.Info();
+                    }
                 }
                 else if (choice == "2")//If choice is 2, it will have the "Cleaner setting"
                 {
-                    Robot robot1 = new Robot(colour, chip, wifi, soapcapacity, small, wheels);
+                    Robot robot1 = new Robot(coloured, chip, wifi, soapcapacity, small, wheels);
                     robot1.Info();
                 }
                 else if (choice == "0")//if choice is 0 it will take "newrobot" and turn it false to stop the program from repeating
